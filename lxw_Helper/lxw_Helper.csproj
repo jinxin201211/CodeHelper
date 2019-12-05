@@ -38,6 +38,15 @@
     <ApplicationIcon>MyTool.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>lib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
+      <HintPath>lib\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\NPOI.dll</HintPath>
@@ -73,6 +82,7 @@
     <Compile Include="Common\ExcelHelper.cs" />
     <Compile Include="Common\Security\DESEncrypt.cs" />
     <Compile Include="Common\Security\Md5.cs" />
+    <Compile Include="DbHelper.cs" />
     <Compile Include="frmBase64.cs">
       <SubType>Form</SubType>
     </Compile>
