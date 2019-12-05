@@ -35,47 +35,71 @@ namespace lxw_Helper
             }
 
             //Data Source=11.101.2.36:1521/orcl
-            ConnectionString = string.Format("Data Source={0}:{4}/{1};user id={2}; password={3};persist security info=false;Min Pool Size=10;Max Pool Size=100;Pooling=true;",
-                txtIP.Text,
-                txtInstanName.Text,
-                txtName.Text,
-                txtPwd.Text,
-                txtport.Text
-                );
+
+            //Oracle
+            if (txtDataBase.Text == "1")
+            {
+                ConnectionString = string.Format($"Data Source={this.txtIP.Text}:{this.txtport.Text}/{this.txtInstanName.Text}; user={this.txtName.Text}; password={this.txtPwd.Text}; persist security info=false;");
+                DataBaseHelper.SelectDataBase("System.Data.OracleClient", ConnectionString);
+                DataBaseHelper.GetTableSql = @"SELECT A.TABLE_NAME, B.COMMENTS
+                              FROM USER_TABLES A
+                              LEFT JOIN USER_TAB_COMMENTS B
+                              ON A.TABLE_NAME = B.TABLE_NAME ORDER BY TABLE_NAME";
+            }
+            //MSSql
+            else if (txtDataBase.Text == "2")
+            {
+                ConnectionString = string.Format($"Data Source={this.txtIP.Text};Initial Catalog={this.txtInstanName.Text};Persist Security Info=True;User ID={this.txtName.Text};Password={this.txtPwd.Text};");
+                DataBaseHelper.SelectDataBase("System.Data.SqlClient", ConnectionString);
+                DataBaseHelper.GetTableSql = "SELECT [NAME] TABLE_NAME FROM SYS.TABLES";
+            }
+            //MySql
+            else if (txtDataBase.Text == "3")
+            {
+                ConnectionString = string.Format("");
+                DataBaseHelper.SelectDataBase("", ConnectionString);
+            }
 
             txtConn.Text = "";
             txtConn.Text = ConnectionString;
 
+            //Data Source=11.101.2.36:1521/orcl
+            //ConnectionString = string.Format("Data Source={0}:{4}/{1};user id={2}; password={3};persist security info=false;Min Pool Size=10;Max Pool Size=100;Pooling=true;",
+            //    txtIP.Text,
+            //    txtInstanName.Text,
+            //    txtName.Text,
+            //    txtPwd.Text,
+            //    txtport.Text
+            //    );
+            //DbHelperOra.ConnectionString = ConnectionString;
+            //string msg = "";
+            //if (DbHelperOra.TestConnection(out msg))
+            //{
 
-            DbHelperOra.ConnectionString = ConnectionString;
-            string msg = "";
-            if (DbHelperOra.TestConnection(out msg))
+            Config.IP = txtIP.Text;
+            Config.Name = txtName.Text;
+            Config.Pwd = txtPwd.Text;
+            Config.Instance = txtInstanName.Text;
+
+            MessageBox.Show("连接成功");
+            if (isFirstRun)
             {
-
-                Config.IP = txtIP.Text;
-                Config.Name = txtName.Text;
-                Config.Pwd = txtPwd.Text;
-                Config.Instance = txtInstanName.Text;
-
-                MessageBox.Show("连接成功");
-                if (isFirstRun)
-                {
-                    this.Hide();
-                    frmMain frm = new frmMain();
-                    frm.Show();
-                }
-                else
-                {
-                    // this.Close();
-                }
-            }
-            else
-            {
-                MessageBox.Show("连接失败:" + msg);
                 this.Hide();
                 frmMain frm = new frmMain();
                 frm.Show();
             }
+            else
+            {
+                // this.Close();
+            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("连接失败:" + msg);
+            //    this.Hide();
+            //    frmMain frm = new frmMain();
+            //    frm.Show();
+            //}
 
         }
 
@@ -91,11 +115,13 @@ namespace lxw_Helper
             }
             //读取配置文件中的参数
             string IP = ConfigurationManager.AppSettings["IP"] ?? "";
+            string Port = ConfigurationManager.AppSettings["Port"] ?? "";
             string Name = ConfigurationManager.AppSettings["Name"] ?? "";
             string Pwd = ConfigurationManager.AppSettings["Pwd"] ?? "";
             string Instance = ConfigurationManager.AppSettings["Instance"] ?? "";
 
             Config.IP = IP;
+            Config.Port = Port;
             Config.Name = Name;
             Config.Pwd = Pwd;
             Config.Instance = Instance;
@@ -103,6 +129,11 @@ namespace lxw_Helper
             if (!string.IsNullOrEmpty(IP))
             {
                 txtIP.Text = IP;
+            }
+
+            if (!string.IsNullOrEmpty(Port))
+            {
+                txtport.Text = Port;
             }
 
             if (!string.IsNullOrEmpty(Name))

@@ -63,15 +63,15 @@ namespace lxw_Helper
 
         private void btnGetTable_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(DbHelperOra.ConnectionString))
-            {
-                MessageBox.Show("请先设置连接字符串");
-                return;
-            }
+            //if (string.IsNullOrEmpty(DbHelperOra.ConnectionString))
+            //{
+            //    MessageBox.Show("请先设置连接字符串");
+            //    return;
+            //}
             try
             {
-                dt = GetTable();
+                dt = DataBaseHelper.GetTable();
+                //dt = GetTable();
                 ltTable = dt.ToList<TableModel>();
 
                 dgvTable.DataSource = null;
