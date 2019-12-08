@@ -45,8 +45,8 @@
             this.txtport = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtOracle = new System.Windows.Forms.RadioButton();
-            this.txtMSSql = new System.Windows.Forms.RadioButton();
-            this.txtMySql = new System.Windows.Forms.RadioButton();
+            this.txtMSSQL = new System.Windows.Forms.RadioButton();
+            this.txtMySQL = new System.Windows.Forms.RadioButton();
             this.groupDataBase = new System.Windows.Forms.GroupBox();
             this.groupDataBase.SuspendLayout();
             this.SuspendLayout();
@@ -195,33 +195,33 @@
             this.txtOracle.Text = "Oracle";
             this.txtOracle.UseVisualStyleBackColor = true;
             // 
-            // txtMSSql
+            // txtMSSQL
             // 
-            this.txtMSSql.AutoSize = true;
-            this.txtMSSql.Location = new System.Drawing.Point(77, 15);
-            this.txtMSSql.Name = "txtMSSql";
-            this.txtMSSql.Size = new System.Drawing.Size(53, 16);
-            this.txtMSSql.TabIndex = 29;
-            this.txtMSSql.Text = "MSSql";
-            this.txtMSSql.UseVisualStyleBackColor = true;
+            this.txtMSSQL.AutoSize = true;
+            this.txtMSSQL.Location = new System.Drawing.Point(77, 15);
+            this.txtMSSQL.Name = "txtMSSQL";
+            this.txtMSSQL.Size = new System.Drawing.Size(53, 16);
+            this.txtMSSQL.TabIndex = 29;
+            this.txtMSSQL.Text = "MSSQL";
+            this.txtMSSQL.UseVisualStyleBackColor = true;
             // 
-            // txtMySql
+            // txtMySQL
             // 
-            this.txtMySql.AutoSize = true;
-            this.txtMySql.Checked = true;
-            this.txtMySql.Location = new System.Drawing.Point(136, 15);
-            this.txtMySql.Name = "txtMySql";
-            this.txtMySql.Size = new System.Drawing.Size(53, 16);
-            this.txtMySql.TabIndex = 30;
-            this.txtMySql.TabStop = true;
-            this.txtMySql.Text = "MySql";
-            this.txtMySql.UseVisualStyleBackColor = true;
+            this.txtMySQL.AutoSize = true;
+            this.txtMySQL.Checked = true;
+            this.txtMySQL.Location = new System.Drawing.Point(136, 15);
+            this.txtMySQL.Name = "txtMySQL";
+            this.txtMySQL.Size = new System.Drawing.Size(53, 16);
+            this.txtMySQL.TabIndex = 30;
+            this.txtMySQL.TabStop = true;
+            this.txtMySQL.Text = "MySQL";
+            this.txtMySQL.UseVisualStyleBackColor = true;
             // 
             // groupDataBase
             // 
             this.groupDataBase.Controls.Add(this.txtOracle);
-            this.groupDataBase.Controls.Add(this.txtMySql);
-            this.groupDataBase.Controls.Add(this.txtMSSql);
+            this.groupDataBase.Controls.Add(this.txtMySQL);
+            this.groupDataBase.Controls.Add(this.txtMSSQL);
             this.groupDataBase.Location = new System.Drawing.Point(92, -2);
             this.groupDataBase.Name = "groupDataBase";
             this.groupDataBase.Size = new System.Drawing.Size(265, 37);
@@ -284,8 +284,8 @@
         private System.Windows.Forms.TextBox txtport;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton txtOracle;
-        private System.Windows.Forms.RadioButton txtMSSql;
-        private System.Windows.Forms.RadioButton txtMySql;
+        private System.Windows.Forms.RadioButton txtMSSQL;
+        private System.Windows.Forms.RadioButton txtMySQL;
         private System.Windows.Forms.GroupBox groupDataBase;
     }
 }

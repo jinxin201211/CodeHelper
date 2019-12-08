@@ -45,7 +45,7 @@ namespace lxw_Helper
             {
                 DataBaseHelper.DbType = 0;
             }
-            else if (this.txtMSSql.Checked)
+            else if (this.txtMSSQL.Checked)
             {
                 DataBaseHelper.DbType = 1;
             }
