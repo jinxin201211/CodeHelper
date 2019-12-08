@@ -43,8 +43,12 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtport = new System.Windows.Forms.TextBox();
-            this.txtDataBase = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtOracle = new System.Windows.Forms.RadioButton();
+            this.txtMSSql = new System.Windows.Forms.RadioButton();
+            this.txtMySql = new System.Windows.Forms.RadioButton();
+            this.groupDataBase = new System.Windows.Forms.GroupBox();
+            this.groupDataBase.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTest
@@ -172,15 +176,6 @@
             this.txtport.TabIndex = 24;
             this.txtport.Text = "1521";
             // 
-            // txtDataBase
-            // 
-            this.txtDataBase.Location = new System.Drawing.Point(92, 12);
-            this.txtDataBase.MaxLength = 20;
-            this.txtDataBase.Name = "txtDataBase";
-            this.txtDataBase.Size = new System.Drawing.Size(158, 21);
-            this.txtDataBase.TabIndex = 26;
-            this.txtDataBase.Text = "1";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -190,13 +185,56 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "数据库：";
             // 
+            // txtOracle
+            // 
+            this.txtOracle.AutoSize = true;
+            this.txtOracle.Location = new System.Drawing.Point(12, 15);
+            this.txtOracle.Name = "txtOracle";
+            this.txtOracle.Size = new System.Drawing.Size(59, 16);
+            this.txtOracle.TabIndex = 28;
+            this.txtOracle.Text = "Oracle";
+            this.txtOracle.UseVisualStyleBackColor = true;
+            // 
+            // txtMSSql
+            // 
+            this.txtMSSql.AutoSize = true;
+            this.txtMSSql.Location = new System.Drawing.Point(77, 15);
+            this.txtMSSql.Name = "txtMSSql";
+            this.txtMSSql.Size = new System.Drawing.Size(53, 16);
+            this.txtMSSql.TabIndex = 29;
+            this.txtMSSql.Text = "MSSql";
+            this.txtMSSql.UseVisualStyleBackColor = true;
+            // 
+            // txtMySql
+            // 
+            this.txtMySql.AutoSize = true;
+            this.txtMySql.Checked = true;
+            this.txtMySql.Location = new System.Drawing.Point(136, 15);
+            this.txtMySql.Name = "txtMySql";
+            this.txtMySql.Size = new System.Drawing.Size(53, 16);
+            this.txtMySql.TabIndex = 30;
+            this.txtMySql.TabStop = true;
+            this.txtMySql.Text = "MySql";
+            this.txtMySql.UseVisualStyleBackColor = true;
+            // 
+            // groupDataBase
+            // 
+            this.groupDataBase.Controls.Add(this.txtOracle);
+            this.groupDataBase.Controls.Add(this.txtMySql);
+            this.groupDataBase.Controls.Add(this.txtMSSql);
+            this.groupDataBase.Location = new System.Drawing.Point(92, -2);
+            this.groupDataBase.Name = "groupDataBase";
+            this.groupDataBase.Size = new System.Drawing.Size(265, 37);
+            this.groupDataBase.TabIndex = 31;
+            this.groupDataBase.TabStop = false;
+            // 
             // frmParCfg
             // 
             this.AcceptButton = this.btnTest;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 226);
-            this.Controls.Add(this.txtDataBase);
+            this.Controls.Add(this.groupDataBase);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtport);
@@ -221,6 +259,8 @@
             this.Text = "连接配置";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmParCfg_FormClosed);
             this.Load += new System.EventHandler(this.frmParCfg_Load);
+            this.groupDataBase.ResumeLayout(false);
+            this.groupDataBase.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +282,10 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtport;
-        private System.Windows.Forms.TextBox txtDataBase;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RadioButton txtOracle;
+        private System.Windows.Forms.RadioButton txtMSSql;
+        private System.Windows.Forms.RadioButton txtMySql;
+        private System.Windows.Forms.GroupBox groupDataBase;
     }
 }

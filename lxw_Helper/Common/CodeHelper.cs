@@ -1155,17 +1155,125 @@ namespace lxw_Helper.Common
         {
             string R = "String";
 
-            if (col.DATA_TYPE == "DATE")
+            if (DataBaseHelper.DbType == 0)
             {
-                R = "Date";
+                if (col.DATA_TYPE == "DATE")
+                {
+                    R = "Date";
+                }
+                else if (col.DATA_TYPE == "NUMBER")
+                {
+                    R = "Long";
+                }
+                else if (col.DATA_TYPE == "BLOB")
+                {
+                    R = "byte[]";
+                }
             }
-            else if (col.DATA_TYPE == "NUMBER")
+            else if (DataBaseHelper.DbType == 1)
             {
-                R = "Long";
+                switch (col.DATA_TYPE.ToLower())
+                {
+                    case "int":
+                    case "tinyint":
+                    case "smallint":
+                        R = "java.lang.Integer";
+                        break;
+                    case "varchar":
+                    case "char":
+                    case "nchar":
+                    case "nvarchar":
+                    case "text":
+                    case "ntext":
+                    case "uniqueidentifier":
+                    case "sql_variant":
+                        R = "java.lang.String";
+                        break;
+                    case "bit":
+                        R = "java.lang.Boolean";
+                        break;
+                    case "bigint":
+                        R = "java.lang.Long";
+                        break;
+                    case "float":
+                        R = "java.lang.Double";
+                        break;
+                    case "real":
+                        R = "java.lang.Float";
+                        break;
+                    case "decimal":
+                    case "money":
+                    case "smallmoney":
+                    case "numeric":
+                        R = "java.math.BigDecimal";
+                        break;
+                    case "smalldatetime":
+                    case "datetime":
+                        R = "java.sql.Timestamp";
+                        break;
+                    case "timestamp":
+                    case "binary":
+                    case "varbinary":
+                    case "image":
+                        R = "java.lang.byte[]";
+                        break;
+                    default:
+                        R = "java.lang.String";
+                        break;
+                }
             }
-            else if (col.DATA_TYPE == "BLOB")
+            else if (DataBaseHelper.DbType == 2)
             {
-                R = "byte[]";
+                switch (col.DATA_TYPE.ToUpper())
+                {
+                    case "VARCHAR":
+                    case "CHAR":
+                    case "TEXT":
+                        R = "java.lang.String";
+                        break;
+                    case "BLOB":
+                        R = "java.lang.byte[]";
+                        break;
+                    case "INTEGER":
+                    case "ID":
+                        R = "java.lang.Long";
+                        break;
+                    case "TINYINT":
+                    case "SMALLINT":
+                    case "MEDIUMINT":
+                    case "BOOLEAN":
+                        R = "java.lang.Integer";
+                        break;
+                    case "BIT":
+                        R = "java.lang.Boolean";
+                        break;
+                    case "BIGINT":
+                        R = "java.math.BigInteger";
+                        break;
+                    case "FLOAT":
+                        R = "java.lang.Float";
+                        break;
+                    case "DOUBLE":
+                        R = "java.lang.Double";
+                        break;
+                    case "DECIMAL":
+                        R = "java.math.BigDecimal";
+                        break;
+                    case "DATE":
+                    case "YEAR":
+                        R = "java.sql.Date";
+                        break;
+                    case "TIME":
+                        R = "java.sql.Time";
+                        break;
+                    case "DATETIME":
+                    case "TIMESTAMP":
+                        R = "java.sql.Timestamp";
+                        break;
+                    default:
+                        R = "java.lang.String";
+                        break;
+                }
             }
 
             return R;
@@ -1175,21 +1283,92 @@ namespace lxw_Helper.Common
         {
             string R = col.DATA_TYPE;
 
-            if (col.DATA_TYPE == "VARCHAR2")
+            if (DataBaseHelper.DbType == 0)
             {
-                R = "VARCHAR";
+                if (col.DATA_TYPE == "VARCHAR2")
+                {
+                    R = "VARCHAR";
+                }
+                else if (col.DATA_TYPE == "NVARCHAR2")
+                {
+                    R = "NVARCHAR";
+                }
+                else if (col.DATA_TYPE == "NUMBER")
+                {
+                    R = "DECIMAL";
+                }
+                else if (col.DATA_TYPE == "DATE")
+                {
+                    R = "TIMESTAMP";
+                }
             }
-            else if (col.DATA_TYPE == "NVARCHAR2")
+            else if (DataBaseHelper.DbType == 1)
             {
-                R = "NVARCHAR";
+                switch (col.DATA_TYPE.ToLower())
+                {
+                    case "timestamp":
+                        R = "BINARY";
+                        break;
+                    case "money":
+                    case "smallmoney":
+                        R = "DECIMAL";
+                        break;
+                    case "float":
+                        R = "DOUBLE";
+                        break;
+                    case "int":
+                        R = "INTEGER";
+                        break;
+                    case "image":
+                    case "varbinary(max)":
+                        R = "LONGVARBINARY";
+                        break;
+                    case "text":
+                    case "varchar(max)":
+                        R = "LONGVARCHAR";
+                        break;
+                    case "nchar":
+                        R = "CHAR";
+                        break;
+                    case "nvarchar":
+                        R = "VARCHAR";
+                        break;
+                    case "nvarchar(max)":
+                    case "ntext":
+                        R = "LONGVARCHAR";
+                        break;
+                    case "datetime":
+                    case "smalldatetime":
+                        R = "TIMESTAMP";
+                        break;
+                    case "udt":
+                        R = "VARBINARY";
+                        break;
+                    case "uniqueidentifier":
+                        R = "CHAR";
+                        break;
+                    case "xml":
+                        R = "LONGVARCHAR";
+                        break;
+                    default:
+                        R = col.DATA_TYPE.ToUpper();
+                        break;
+                }
             }
-            else if (col.DATA_TYPE == "NUMBER")
+            else if (DataBaseHelper.DbType == 2)
             {
-                R = "DECIMAL";
-            }
-            else if (col.DATA_TYPE == "DATE")
-            {
-                R = "TIMESTAMP";
+                switch (col.DATA_TYPE.ToUpper())
+                {
+                    case "TEXT":
+                        R = "CLOB";
+                        break;
+                    case "DATETIME":
+                        R = "TIMESTAMP";
+                        break;
+                    default:
+                        R = col.DATA_TYPE;
+                        break;
+                }
             }
             return R;
         }

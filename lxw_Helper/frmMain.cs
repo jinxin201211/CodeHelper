@@ -84,24 +84,24 @@ namespace lxw_Helper
 
         }
 
-        private DataTable GetTable()
-        {
-            try
-            {
-                string strSQL = @"SELECT A.TABLE_NAME, B.COMMENTS
-                              FROM USER_TABLES A
-                              LEFT JOIN USER_TAB_COMMENTS B
-                              ON A.TABLE_NAME = B.TABLE_NAME ORDER BY TABLE_NAME";
+        //private DataTable GetTable()
+        //{
+        //    try
+        //    {
+        //        string strSQL = @"SELECT A.TABLE_NAME, B.COMMENTS
+        //                      FROM USER_TABLES A
+        //                      LEFT JOIN USER_TAB_COMMENTS B
+        //                      ON A.TABLE_NAME = B.TABLE_NAME ORDER BY TABLE_NAME";
 
-                return DbHelperOra.Query(strSQL).Tables[0];
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
+        //        return DbHelperOra.Query(strSQL).Tables[0];
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //        return null;
+        //    }
 
-        }
+        //}
 
         private void dgvTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -119,7 +119,8 @@ namespace lxw_Helper
                 lblTableName.Text = TableName.ToLower() + "(" + TableComments + ")";
                 txtTName_C.Text = CodeHelper.ConvertToCamel(TableName, "_");
                 txtTName_P.Text = CodeHelper.ConvertToPascal(TableName, "_");
-                ltCol = GetColInfoByTable(TableName);
+                //ltCol = GetColInfoByTable(TableName);
+                ltCol = DataBaseHelper.GetColInfoByTable(TableName, chkSort.Checked);
 
                 ltCol.ForEach(o =>
                 {
@@ -168,64 +169,65 @@ namespace lxw_Helper
                 }
 
                 string strSQL2 = " select * from " + TableName + " where 1=0";
-                DataChange.GetCSharpType(ltCol, DbHelperOra.Query(strSQL2).Tables[0]);
+                //DataChange.GetCSharpType(ltCol, DbHelperOra.Query(strSQL2).Tables[0]);
+                DataChange.GetCSharpType(ltCol, DataBaseHelper.Query(strSQL2).Tables[0]);
 
                 BindData();
             }
         }
 
-        private List<ColModel> GetColInfoByTable(string tableName)
-        {
-            string strSQL = @" SELECT A.COLUMN_NAME,
-                                       A.DATA_TYPE,
-                                       B.COMMENTS,
-                                       A.NULLABLE,
-                                       A.DATA_LENGTH,
-                                       CASE
-                                         WHEN C.CONSTRAINT_NAME IS NULL THEN
-                                          '0'
-                                         ELSE
-                                          '1'
-                                       END AS ISPK,
-                                       C.CONSTRAINT_NAME,
-                                       A.DATA_DEFAULT,
-                                       A.CHAR_LENGTH, A.DATA_PRECISION,A.DATA_SCALE
-                                  FROM USER_TAB_COLUMNS A
-                                  LEFT JOIN USER_COL_COMMENTS B
-                                    ON A.TABLE_NAME = B.TABLE_NAME
-                                   AND A.COLUMN_NAME = B.COLUMN_NAME
-                                  LEFT JOIN (SELECT A.TABLE_NAME, A.COLUMN_NAME, A.CONSTRAINT_NAME
-                                               FROM USER_CONS_COLUMNS A, USER_CONSTRAINTS B
-                                              WHERE A.CONSTRAINT_NAME = B.CONSTRAINT_NAME
-                                                AND B.CONSTRAINT_TYPE = 'P'"
-                                    + " AND B.TABLE_NAME = '" + tableName + "') C"
-                                    + "  ON A.TABLE_NAME = C.TABLE_NAME"
-                                    + " AND A.COLUMN_NAME = C.COLUMN_NAME"
-                                    + " WHERE A.TABLE_NAME = '" + tableName + "'";
+        //private List<ColModel> GetColInfoByTable(string tableName)
+        //{
+        //    string strSQL = @" SELECT A.COLUMN_NAME,
+        //                               A.DATA_TYPE,
+        //                               B.COMMENTS,
+        //                               A.NULLABLE,
+        //                               A.DATA_LENGTH,
+        //                               CASE
+        //                                 WHEN C.CONSTRAINT_NAME IS NULL THEN
+        //                                  '0'
+        //                                 ELSE
+        //                                  '1'
+        //                               END AS ISPK,
+        //                               C.CONSTRAINT_NAME,
+        //                               A.DATA_DEFAULT,
+        //                               A.CHAR_LENGTH, A.DATA_PRECISION,A.DATA_SCALE
+        //                          FROM USER_TAB_COLUMNS A
+        //                          LEFT JOIN USER_COL_COMMENTS B
+        //                            ON A.TABLE_NAME = B.TABLE_NAME
+        //                           AND A.COLUMN_NAME = B.COLUMN_NAME
+        //                          LEFT JOIN (SELECT A.TABLE_NAME, A.COLUMN_NAME, A.CONSTRAINT_NAME
+        //                                       FROM USER_CONS_COLUMNS A, USER_CONSTRAINTS B
+        //                                      WHERE A.CONSTRAINT_NAME = B.CONSTRAINT_NAME
+        //                                        AND B.CONSTRAINT_TYPE = 'P'"
+        //                            + " AND B.TABLE_NAME = '" + tableName + "') C"
+        //                            + "  ON A.TABLE_NAME = C.TABLE_NAME"
+        //                            + " AND A.COLUMN_NAME = C.COLUMN_NAME"
+        //                            + " WHERE A.TABLE_NAME = '" + tableName + "'";
 
-            if (chkSort.Checked)
-            {
-                strSQL += " ORDER BY A.COLUMN_NAME";
-            }
-            List<ColModel> ltCol = DbHelperOra.Query(strSQL).Tables[0].ToList<ColModel>();
+        //    if (chkSort.Checked)
+        //    {
+        //        strSQL += " ORDER BY A.COLUMN_NAME";
+        //    }
+        //    List<ColModel> ltCol = DbHelperOra.Query(strSQL).Tables[0].ToList<ColModel>();
 
-            foreach (var item in ltCol)
-            {
-                if (item.DATA_DEFAULT == null)
-                {
-                    item.DATA_DEFAULT = "";
-                }
-                else
-                {
-                    item.DATA_DEFAULT = item.DATA_DEFAULT.Replace("\n", "").Trim();
-                    if (item.DATA_DEFAULT == "null")
-                    {
-                        item.DATA_DEFAULT = "";
-                    }
-                }
-            }
-            return ltCol;
-        }
+        //    foreach (var item in ltCol)
+        //    {
+        //        if (item.DATA_DEFAULT == null)
+        //        {
+        //            item.DATA_DEFAULT = "";
+        //        }
+        //        else
+        //        {
+        //            item.DATA_DEFAULT = item.DATA_DEFAULT.Replace("\n", "").Trim();
+        //            if (item.DATA_DEFAULT == "null")
+        //            {
+        //                item.DATA_DEFAULT = "";
+        //            }
+        //        }
+        //    }
+        //    return ltCol;
+        //}
 
         private void BindData()
         {
@@ -1196,12 +1198,10 @@ namespace lxw_Helper
         }
 
         #region 导出表结构
-
-
         private void btnExportTable2Excel_Click(object sender, EventArgs e)
         {
-
-            ltTable = GetTable().ToList<TableModel>();
+            ltTable = DataBaseHelper.GetTable().ToList<TableModel>();
+            //ltTable = GetTable().ToList<TableModel>();
 
             if (ltTable == null || ltTable.Count == 0)
             {
@@ -1282,7 +1282,8 @@ namespace lxw_Helper
             //查询表中的列信息
             for (int i = 0; i < ltTable.Count; i++)
             {
-                ltTable[i].ltCol = GetColInfoByTable(ltTable[i].TABLE_NAME);
+                //ltTable[i].ltCol = GetColInfoByTable(ltTable[i].TABLE_NAME);
+                ltTable[i].ltCol = DataBaseHelper.GetColInfoByTable(ltTable[i].TABLE_NAME, chkSort.Checked);
                 barPrecent = (int)(((double)i / (double)total) * 100);
                 bgwExport.ReportProgress(barPrecent, i);
             }
@@ -1323,7 +1324,6 @@ namespace lxw_Helper
             //打开文件夹
             System.Diagnostics.Process.Start("explorer.exe", path);
         }
-
         #endregion
 
         private void 导出表结构ToolStripMenuItem_Click(object sender, EventArgs e)
