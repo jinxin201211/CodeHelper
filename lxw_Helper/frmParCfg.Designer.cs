@@ -194,6 +194,7 @@
             this.txtOracle.TabIndex = 28;
             this.txtOracle.Text = "Oracle";
             this.txtOracle.UseVisualStyleBackColor = true;
+            this.txtOracle.Click += new System.EventHandler(this.txtOracle_Click);
             // 
             // txtMSSQL
             // 
@@ -204,6 +205,7 @@
             this.txtMSSQL.TabIndex = 29;
             this.txtMSSQL.Text = "MSSQL";
             this.txtMSSQL.UseVisualStyleBackColor = true;
+            this.txtMSSQL.Click += new System.EventHandler(this.txtMSSQL_Click);
             // 
             // txtMySQL
             // 
@@ -216,6 +218,7 @@
             this.txtMySQL.TabStop = true;
             this.txtMySQL.Text = "MySQL";
             this.txtMySQL.UseVisualStyleBackColor = true;
+            this.txtMySQL.Click += new System.EventHandler(this.txtMySQL_Click);
             // 
             // groupDataBase
             // 

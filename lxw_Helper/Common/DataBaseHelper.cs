@@ -76,14 +76,49 @@ SELECT TABLE_NAME,TABLE_COMMENT AS COMMENTS
 
         public static void ChangeDataBase()
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            ConfigurationSection connectionConfigurationSection = config.Sections["connectionStrings"];
-            ConnectionStringsSection connectionStringsSection = connectionConfigurationSection as ConnectionStringsSection;
-            connectionStringsSection.ConnectionStrings["DataSource"].ConnectionString = ConnectionString;
-            connectionStringsSection.ConnectionStrings["DataSource"].ProviderName = Provider[DbType];
-            config.Save();
-            ConfigurationManager.RefreshSection("connectionStrings");
-            db = DatabaseFactory.CreateDatabase("DataSource");
+            //bool isExisted = false;
+            //string connStringName = "DataSource" + ChangeCount;
+            //ConnectionStringSettings mySettings = new ConnectionStringSettings(connStringName, ConnectionString, Provider[DbType]);
+            //if (ConfigurationManager.ConnectionStrings[connStringName] != null)
+            //{
+            //    isExisted = true;
+            //}
+            ////string str = ConfigurationManager.ConnectionStrings["DataSource"].ConnectionString;
+            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //if (isExisted == true)
+            //{
+            //    config.ConnectionStrings.ConnectionStrings.Remove(connStringName);
+            //}
+            //config.ConnectionStrings.ConnectionStrings.Add(mySettings);
+            //config.Save(ConfigurationSaveMode.Modified);
+            //ConfigurationManager.RefreshSection("connectionStrings");
+            //db = DatabaseFactory.CreateDatabase(connStringName);
+            //ChangeCount++;
+
+            for (int i = 0; i < 2; i++)
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                ConfigurationSection connectionConfigurationSection = config.Sections["connectionStrings"];
+                ConnectionStringsSection connectionStringsSection = connectionConfigurationSection as ConnectionStringsSection;
+                connectionStringsSection.ConnectionStrings["DataSource"].ConnectionString = ConnectionString;
+                connectionStringsSection.ConnectionStrings["DataSource"].ProviderName = Provider[DbType];
+                config.Save();
+                ConfigurationManager.RefreshSection("connectionStrings");
+                db = DatabaseFactory.CreateDatabase("DataSource");
+                try
+                {
+                    DbCommand command = db.GetSqlStringCommand(GetTableSql[DbType]);
+                    db.ExecuteNonQuery(command);
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }
+
         }
 
         public static bool TestConnection(out string msg)
@@ -211,7 +246,7 @@ cast(a.character_octet_length as decimal) as CHAR_LENGTH,
 null as DATA_PRECISION, 
 null as DATA_SCALE
  from information_schema.columns a
-where table_schema = 'sys' and table_name = '{tableName}'
+where table_schema = '{Instance}' and table_name = '{tableName}'
 ";
 
                 if (sort)

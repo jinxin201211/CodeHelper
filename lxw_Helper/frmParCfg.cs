@@ -189,5 +189,32 @@ namespace lxw_Helper
             frmMain frm = new frmMain();
             frm.Show();
         }
+
+        private void txtOracle_Click(object sender, EventArgs e)
+        {
+            this.txtIP.Text = "118.112.188.39";
+            this.txtport.Text = "2001";
+            this.txtInstanName.Text = "orcl";
+            this.txtName.Text = "cdles";
+            this.txtPwd.Text = "scxd_2018";
+        }
+
+        private void txtMSSQL_Click(object sender, EventArgs e)
+        {
+            this.txtIP.Text = "118.24.64.59";
+            this.txtport.Text = "";
+            this.txtInstanName.Text = "MovieWarehouse";
+            this.txtName.Text = "sa";
+            this.txtPwd.Text = "jinxin20170630.";
+        }
+
+        private void txtMySQL_Click(object sender, EventArgs e)
+        {
+            this.txtIP.Text = "140.143.82.131";
+            this.txtport.Text = "10014";
+            this.txtInstanName.Text = "jinx_manage";
+            this.txtName.Text = "root";
+            this.txtPwd.Text = "jinxin20170630";
+        }
     }
 }
