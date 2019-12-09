@@ -980,9 +980,20 @@ namespace lxw_Helper
                 CreateDir(basepath + "/src/main/resources/mapper");
 
                 //properties
-                template = File.ReadAllText(Application.StartupPath + @"\Template\properties.txt", Encoding.UTF8);
+                if (DataBaseHelper.DbType == 0)
+                {
+                    template = File.ReadAllText(Application.StartupPath + @"\Template\properties-oracle.txt", Encoding.UTF8);
+                }
+                else if (DataBaseHelper.DbType == 1)
+                {
+                    template = File.ReadAllText(Application.StartupPath + @"\Template\properties-mssql.txt", Encoding.UTF8);
+                }
+                else if (DataBaseHelper.DbType == 2)
+                {
+                    template = File.ReadAllText(Application.StartupPath + @"\Template\properties-mysql.txt", Encoding.UTF8);
+                }
                 StringBuilder sb = new StringBuilder();
-                sb.AppendFormat(template, Config.IP, Config.Name, Config.Pwd, txtPackage.Text);
+                sb.AppendFormat(template, Config.IP, Config.Port, Config.Instance, Config.Name, Config.Pwd, txtPackage.Text);
                 File.WriteAllText(basepath + "/src/main/resources/" + "application.properties", sb.ToString(), Encoding.UTF8);
 
                 MessageBox.Show("创建成功!");

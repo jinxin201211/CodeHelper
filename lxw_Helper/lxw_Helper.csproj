@@ -216,7 +216,10 @@
     <Content Include="Template\CORSFilter.java">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Template\properties.txt">
+    <Content Include="Template\properties-mysql.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\properties-oracle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Template\ResultCodeEnum.txt">

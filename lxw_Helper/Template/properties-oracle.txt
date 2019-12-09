@@ -1,14 +1,14 @@
 ﻿#数据源配置
-spring.datasource.url=jdbc:oracle:thin:@{0}:1521/orcl
-spring.datasource.username={1}
-spring.datasource.password={2}
+spring.datasource.url=jdbc:oracle:thin:@{0}:{1}/{2}
+spring.datasource.username={3}
+spring.datasource.password={4}
 spring.datasource.driverClassName=oracle.jdbc.driver.OracleDriver
 
 # 扫描mapper.xml文件
 mybatis.mapper-locations=classpath:mapper/*.xml
 # 扫描实体类
-mybatis.typeAliasesPackage={3}.pojo
-#logging.level.{3}.mapper = debug
+mybatis.typeAliasesPackage={5}.pojo
+#logging.level.{5}.mapper = debug
 
 # 分页插件
 pagehelper:
