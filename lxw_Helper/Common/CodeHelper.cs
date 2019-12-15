@@ -660,7 +660,8 @@ namespace lxw_Helper.Common
             #endregion
 
             #region selectByPrimaryKey
-            sb.AppendLine("<select id=\"selectByPrimaryKey\" resultMap=\"BaseResultMap\" parameterType=\"java.lang." + GetJavaType(keyCol) + "\" > ");
+            string keyColJavaType = GetJavaType(keyCol);
+            sb.AppendLine("<select id=\"selectByPrimaryKey\" resultMap=\"BaseResultMap\" parameterType=\"" + (keyColJavaType.StartsWith("java") ? keyColJavaType : "java.lang." + keyColJavaType) + "\" > ");
             sb.AppendLine("    select  ");
             sb.AppendLine("    <include refid=\"Base_Column_List\" /> ");
             sb.AppendLine("    from  " + className);
@@ -697,7 +698,7 @@ namespace lxw_Helper.Common
             #endregion
 
             #region deleteByPrimaryKey
-            sb.AppendLine("<delete id=\"deleteByPrimaryKey\"  parameterType=\"java.lang." + GetJavaType(keyCol) + "\" > ");
+            sb.AppendLine("<delete id=\"deleteByPrimaryKey\"  parameterType=\"" + (keyColJavaType.StartsWith("java") ? keyColJavaType : "java.lang." + keyColJavaType) + "\" > ");
             sb.AppendLine("    delete  ");
             sb.AppendLine("    from  " + className);
             sb.AppendLine("    where " + keyCol.COLUMN_NAME + " = #{" + keyCol.ColumnName_Camel + ",jdbcType=" + GetJDBCType(keyCol) + "} ");
@@ -710,7 +711,7 @@ namespace lxw_Helper.Common
             string values = "SEQ_" + className + ".NEXTVAL,";
             foreach (var item in ltCol)
             {
-                if (item.ISPK == "1")
+                if (item.ISPK == "1" || item.COLUMN_NAME.ToLower() == "ctime" || item.COLUMN_NAME.ToLower() == "createtime" || item.COLUMN_NAME.ToLower() == "utime" || item.COLUMN_NAME.ToLower() == "updatetime")
                 {
                     continue;
                 }
@@ -729,7 +730,7 @@ namespace lxw_Helper.Common
 
             foreach (var item in ltCol)
             {
-                if (item.ISPK == "1")
+                if (item.ISPK == "1" || item.COLUMN_NAME.ToLower() == "ctime" || item.COLUMN_NAME.ToLower() == "createtime" || item.COLUMN_NAME.ToLower() == "utime" || item.COLUMN_NAME.ToLower() == "updatetime")
                 {
                     continue;
                 }
@@ -754,7 +755,7 @@ namespace lxw_Helper.Common
             string sets = "";
             foreach (var item in ltCol)
             {
-                if (item.ISPK == "1")
+                if (item.ISPK == "1" || item.COLUMN_NAME.ToLower() == "ctime" || item.COLUMN_NAME.ToLower() == "createtime")
                 {
                     continue;
                 }
@@ -781,7 +782,7 @@ namespace lxw_Helper.Common
             sb.AppendLine("     <set >");
             foreach (var item in ltCol)
             {
-                if (item.ISPK == "1")
+                if (item.ISPK == "1" || item.COLUMN_NAME.ToLower() == "ctime" || item.COLUMN_NAME.ToLower() == "createtime")
                 {
                     continue;
                 }
@@ -1248,7 +1249,7 @@ namespace lxw_Helper.Common
                         R = "Boolean";
                         break;
                     case "BIGINT":
-                        R = "BigInteger";
+                        R = "java.math.BigInteger";
                         break;
                     case "FLOAT":
                         R = "Float";
@@ -1257,18 +1258,18 @@ namespace lxw_Helper.Common
                         R = "Double";
                         break;
                     case "DECIMAL":
-                        R = "BigDecimal";
+                        R = "java.math.BigDecimal";
                         break;
                     case "DATE":
                     case "YEAR":
-                        R = "Date";
+                        R = "java.util.Date";
                         break;
                     case "TIME":
-                        R = "Time";
+                        R = "java.sql.Time";
                         break;
                     case "DATETIME":
                     case "TIMESTAMP":
-                        R = "Timestamp";
+                        R = "java.sql.Timestamp";
                         break;
                     default:
                         R = "String";
