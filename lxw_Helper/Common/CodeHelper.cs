@@ -995,11 +995,10 @@ namespace lxw_Helper.Common
             sb.AppendLine("import " + strPackage + ".service.I" + className + "Service;");
             sb.AppendLine("");
             sb.AppendLine("import org.springframework.beans.factory.annotation.Autowired;");
-            sb.AppendLine("import org.springframework.web.bind.annotation.RequestMapping;");
-            sb.AppendLine("import org.springframework.web.bind.annotation.RequestParam;");
-            sb.AppendLine("import org.springframework.web.bind.annotation.RestController;");
+            sb.AppendLine("import org.springframework.web.bind.annotation.*;");
             sb.AppendLine("import com.github.pagehelper.PageInfo;");
             sb.AppendLine("");
+            sb.AppendLine("import java.math.BigInteger;");
             sb.AppendLine("import java.util.Map;");
             sb.AppendLine("");
             sb.AppendLine("/**");
@@ -1040,8 +1039,9 @@ namespace lxw_Helper.Common
             sb.AppendLine("/**");
             sb.AppendLine(" *保存");
             sb.AppendLine(" */");
+            sb.AppendLine("@ResponseBody");
             sb.AppendLine("@RequestMapping(\"/add\")");
-            sb.AppendLine("public Response Save(" + className + " record) throws Exception {");
+            sb.AppendLine("public Response Save(@RequestBody " + className + " record) throws Exception {");
             sb.AppendLine("    " + classNameFLTL + "Service.add(record);");
             sb.AppendLine("    return new Response().success();");
             sb.AppendLine("}");
@@ -1050,8 +1050,9 @@ namespace lxw_Helper.Common
             sb.AppendLine("/**");
             sb.AppendLine(" *修改");
             sb.AppendLine(" */");
+            sb.AppendLine("@ResponseBody");
             sb.AppendLine("@RequestMapping(\"/edit\")");
-            sb.AppendLine("public Response Edit(" + className + " record) throws Exception {");
+            sb.AppendLine("public Response Edit(@RequestBody " + className + " record) throws Exception {");
             sb.AppendLine("    " + classNameFLTL + "Service.update(record);");
             sb.AppendLine("    return new Response().success();");
             sb.AppendLine("}");
